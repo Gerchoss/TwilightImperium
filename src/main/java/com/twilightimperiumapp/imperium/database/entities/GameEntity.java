@@ -1,18 +1,17 @@
 package com.twilightimperiumapp.imperium.database.entities;
 
-import com.twilightimperiumapp.imperium.controller.Game;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 
 @Data
 @Entity(name="game")
-public class GameEntity extends Game {
+public class GameEntity{
     @Id
     @Column(name ="id", length = 7)
-    private String id;
+    private Long id;
 
     @Column(name ="player_name", length = 25)
     private String playerName;
@@ -26,4 +25,7 @@ public class GameEntity extends Game {
     private boolean codex1Enabled;
     private boolean codex2Enabled;
     private boolean codex3Enabled;
+
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    private List<PlayerEntity> playersList;
 }

@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: imperium_db
+    environment:
+      POSTGRES_DB: imperium
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123123
+    ports:
+      - "5432:5432"
+    volumes:
+      - imperium_data:/var/lib/postgresql/data
+    networks:
+      - imperium_network
+    restart: always
+
+volumes:
+  imperium_data:
+
+networks:
+  imperium_network:
+    driver: bridge

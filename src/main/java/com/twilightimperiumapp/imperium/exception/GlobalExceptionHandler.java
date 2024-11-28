@@ -11,17 +11,12 @@ public class GlobalExceptionHandler{
 
     @ExceptionHandler(GameNameAlreadyExistException.class)
     public ResponseEntity<ErrorResponse> handleNameGameAlreadyExistException(GameNameAlreadyExistException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("GAME_NAME_ALREADY_EXIST", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("GAME_NAME_ALREADY_EXIST", ex.getMessage()));
     }
 
-   @ExceptionHandler(GameNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleGameNotFoundException(GameNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("GAME_NOT_FOUND", ex.getMessage()));
-    }
-
-    @ExceptionHandler(PlayerJoinedException.class)
-    public ResponseEntity<ErrorResponse> handlePlayerJoinedException(PlayerJoinedException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("PLAYER_JOINED", ex.getMessage()));
+   @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("NOT_FOUND", ex.getMessage()));
     }
 
     @ExceptionHandler(GameFullException.class)
@@ -29,9 +24,10 @@ public class GlobalExceptionHandler{
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("GAME_FULL", ex.getMessage()));
     }
 
-    @ExceptionHandler(GameStartedFinishedException.class)
-    public ResponseEntity<ErrorResponse> handleGameStartedFinishedException(GameStartedFinishedException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("GAME_STARTED_FINISHED", ex.getMessage()));
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("INTERNAL_SERVER_ERROR", "Unexpected Error"));
     }
 
 }

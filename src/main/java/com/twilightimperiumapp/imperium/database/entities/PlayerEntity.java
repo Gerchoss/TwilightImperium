@@ -1,9 +1,9 @@
 package com.twilightimperiumapp.imperium.database.entities;
 
-import com.twilightimperiumapp.imperium.controller.Game;
+
+
 import jakarta.persistence.*;
 import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
 
 
 @Data
@@ -14,9 +14,9 @@ public class PlayerEntity {
     @Column(name ="id")
     private Long id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "game_id")
-    private String game; //Game game
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private GameEntity game;
 
     @Column(name ="player_name", length = 25)
     private String playerName;
